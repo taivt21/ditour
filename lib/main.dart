@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/auth/data/data_sources/auth_local_data_source.dart';
 import 'features/auth/data/data_sources/auth_remote_data_source.dart';
-import 'features/auth/data/data_sources/auth_remote_data_source_fake.dart';
+import 'features/auth/data/data_sources/auth_remote_data_source_firebase.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/domain/entities/auth_user.dart';
 import 'features/auth/domain/repositories/auth_repository.dart';
@@ -27,6 +27,7 @@ void main() {
       AuthLocalDataSource authLocalDataSource = AuthLocalDataSource();
       AuthRemoteDataSource authRemoteDataSource =
           AuthRemoteDataSourceFirebase();
+      AuthRemoteDataSourceFirebase();
 
       AuthRepository authRepository = AuthRepositoryImpl(
         localDataSource: authLocalDataSource,
@@ -42,14 +43,14 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({
-    super.key,
-    required this.authRepository,
-    this.authUser,
-  });
-
   final AuthRepository authRepository;
   final AuthUser? authUser;
+
+  const App({
+    Key? key,
+    required this.authRepository,
+    this.authUser,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +59,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: authRepository),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Clean Architecture',
         theme: ThemeData.light(useMaterial3: true),
         home: const SignInScreen(),

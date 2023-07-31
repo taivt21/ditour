@@ -6,6 +6,7 @@ class SignInState extends Equatable {
   final EmailStatus emailStatus;
   final PasswordStatus passwordStatus;
   final FormStatus formStatus;
+  final AuthUser? user;
 
   const SignInState({
     this.email,
@@ -13,6 +14,7 @@ class SignInState extends Equatable {
     this.emailStatus = EmailStatus.unknown,
     this.passwordStatus = PasswordStatus.unknown,
     this.formStatus = FormStatus.initial,
+    this.user,
   });
 
   SignInState copyWith({
@@ -21,6 +23,7 @@ class SignInState extends Equatable {
     EmailStatus? emailStatus,
     PasswordStatus? passwordStatus,
     FormStatus? formStatus,
+    AuthUser? user,
   }) {
     return SignInState(
       email: email ?? this.email,
@@ -28,6 +31,7 @@ class SignInState extends Equatable {
       emailStatus: emailStatus ?? this.emailStatus,
       passwordStatus: passwordStatus ?? this.passwordStatus,
       formStatus: formStatus ?? this.formStatus,
+      user: user ?? this.user,
     );
   }
 
@@ -38,5 +42,6 @@ class SignInState extends Equatable {
         emailStatus,
         passwordStatus,
         formStatus,
+        user,
       ];
 }

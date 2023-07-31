@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../../../domain/entities/auth_user.dart';
 import '../../../domain/usecases/sign_in_use_case.dart';
 import '../../../domain/values_objects/email.dart';
 import '../../../domain/values_objects/password.dart';
 import '../email_status.dart';
 import '../form_status.dart';
 import '../password_status.dart';
-
 part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {
@@ -55,13 +55,14 @@ class SignInCubit extends Cubit<SignInState> {
 
     emit(state.copyWith(formStatus: FormStatus.submissionInProgress));
     try {
-      await _signInUseCase(
+      final authUser = await _signInUseCase(
         SignInParams(
           email: state.email!,
           password: state.password!,
         ),
       );
-      emit(state.copyWith(formStatus: FormStatus.submissionSuccess));
+      emit(state.copyWith(
+          formStatus: FormStatus.submissionSuccess, user: authUser));
     } catch (err) {
       emit(state.copyWith(formStatus: FormStatus.submissionFailure));
     }

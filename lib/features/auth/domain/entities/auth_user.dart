@@ -6,7 +6,7 @@ class AuthUser extends Equatable {
   final String id;
   final String email;
   final String? name;
-  final String? photoURL;
+  final String? photoUrl;
   // For example, a high-level rule for a User entity might be
   // that a user age cannot be lower than 18.
   // final int age;
@@ -15,14 +15,15 @@ class AuthUser extends Equatable {
     required this.id,
     required this.email,
     this.name,
-    this.photoURL,
+    this.photoUrl,
+    String? token,
   });
 
   static const AuthUser empty = AuthUser(
     id: '',
     name: '',
     email: '',
-    photoURL: '',
+    photoUrl: '',
   );
 
   // An entity can be an object with methods, or it can be a set of
@@ -30,7 +31,7 @@ class AuthUser extends Equatable {
   bool get isEmpty => this == AuthUser.empty;
 
   @override
-  List<Object?> get props => [id, name, email, photoURL];
+  List<Object?> get props => [id, name, email, photoUrl];
 
   // DO NOT ADD THIS CONSTRUCTOR:
   // It's not the role of the entity to know how to serialize
@@ -40,7 +41,7 @@ class AuthUser extends Equatable {
   //     id: json['id'] as String,
   //     name: json['name'] as String,
   //     email: json['email'] as String,
-  //     photoURL: json['photoURL'] as String,
+  //     photoUrl: json['photoUrl'] as String,
   //   );
   // }
 }

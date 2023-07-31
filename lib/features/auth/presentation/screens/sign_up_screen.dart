@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ditour_clean/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -69,6 +70,25 @@ class _SignUpViewState extends State<SignUpView> {
                   ),
                 ),
               );
+          } else {
+            try {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const SignInScreen()), // Chuyển đến HomeScreen
+              );
+            } catch (e) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'There was an error with the sign up process. Try again.',
+                    ),
+                  ),
+                );
+            }
           }
         },
         builder: (context, state) {

@@ -55,6 +55,9 @@ dependencies:
   go_router: ^9.0.0
   built_value: ^8.6.1
   flutterfire_cli: ^0.1.1+2
+  jwt_decoder: ^2.0.1
+  dart_jsonwebtoken: ^2.8.2
+  introduction_screen: ^3.1.11
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +74,8 @@ dev_dependencies:
   build_runner: ^2.4.6
   json_serializable: ^6.7.1
   built_value_generator: ^8.6.1
+  firebase_auth_platform_interface: ^6.15.0
+  firebase_core_platform_interface: ^4.8.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

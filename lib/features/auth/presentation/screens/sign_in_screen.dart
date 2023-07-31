@@ -9,9 +9,10 @@ import '../blocs/email_status.dart';
 import '../blocs/form_status.dart';
 import '../blocs/password_status.dart';
 import '../blocs/sign_in/sign_in_cubit.dart';
+import 'home_screens.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({super.key});
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class SignInScreen extends StatelessWidget {
 }
 
 class SignInView extends StatefulWidget {
-  const SignInView({super.key});
+  const SignInView({Key? key}) : super(key: key);
 
   @override
   State<SignInView> createState() => _SignInViewState();
@@ -46,7 +47,7 @@ class _SignInViewState extends State<SignInView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: const Center(child: Text('Log in or Sign up')),
       ),
       body: BlocConsumer<SignInCubit, SignInState>(
         listener: (context, state) {
@@ -69,6 +70,26 @@ class _SignInViewState extends State<SignInView> {
                   ),
                 ),
               );
+          }
+          if (state.formStatus == FormStatus.submissionSuccess) {
+            try {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        const HomeScreen()), // Chuyển đến HomeScreen
+              );
+            } catch (e) {
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'There was an submissionSuccess.',
+                    ),
+                  ),
+                );
+            }
           }
         },
         builder: (context, state) {
@@ -107,8 +128,7 @@ class _SignInViewState extends State<SignInView> {
                 const SizedBox(height: 8.0),
                 ElevatedButton(
                   key: const Key('signIn_continue_elevatedButton'),
-                  onPressed: context.read<SignInCubit>().state.formStatus ==
-                          FormStatus.submissionInProgress
+                  onPressed: state.formStatus == FormStatus.submissionInProgress
                       ? null
                       : () {
                           context.read<SignInCubit>().signIn();

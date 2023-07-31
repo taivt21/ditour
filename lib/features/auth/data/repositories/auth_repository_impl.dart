@@ -53,11 +53,12 @@ class AuthRepositoryImpl implements AuthRepository {
     localDataSource.write(key: 'user', value: authModel);
 
     return authModel.toEntity();
+    // print(authModel.toEntity());
   }
 
   @override
   Future<void> signOut() async {
-    await remoteDataSource.signOut();
+    // await remoteDataSource.signOut();
 
     localDataSource.write(key: 'user', value: null);
   }

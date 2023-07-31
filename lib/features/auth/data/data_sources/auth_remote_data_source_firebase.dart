@@ -4,11 +4,11 @@ import '../models/auth_user_model.dart';
 import 'auth_remote_data_source.dart';
 
 class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
+  final firebase_auth.FirebaseAuth _firebaseAuth;
+
   AuthRemoteDataSourceFirebase({
     firebase_auth.FirebaseAuth? firebaseAuth,
   }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
-
-  final firebase_auth.FirebaseAuth _firebaseAuth;
 
   @override
   Stream<AuthUserModel?> get user {
@@ -57,7 +57,10 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource {
       if (credential.user == null) {
         throw Exception('Sign in failed: The user is null after sign in.');
       }
-
+      // final token = authRepository.createJwtToken(credential.user!);
+      // final userModel = AuthUserModel.fromFirebaseAuthUser(credential.user!);
+      // final updatedUserModel = userModel.copyWith(token: token);
+      // return updatedUserModel;
       return AuthUserModel.fromFirebaseAuthUser(credential.user!);
     } catch (error) {
       throw Exception('Sign in failed: $error');
